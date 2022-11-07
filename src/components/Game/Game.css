@@ -1,0 +1,4 @@
+.team-box {
+    display: flex;
+    justify-content: space-evenly;
+}
