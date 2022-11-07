@@ -1,6 +1,7 @@
 import React from 'react';
 import './Team.css';
 import { useState } from 'react';
+import Roster from '../Roster';
 
 export default function Team({name, record}) {
 
@@ -13,7 +14,7 @@ export default function Team({name, record}) {
             <button onClick={() => setExpanded(!expanded)}>Expand</button>
             {expanded && 
                 <div>
-                    Roster
+                    <Roster></Roster>
                 </div>
             }
         </div>
