@@ -1,6 +1,7 @@
 import React from 'react';
 import './Team.css';
 import { useState } from 'react';
+import { ChevronDownIcon } from '@primer/octicons-react';
 
 export default function Team({name, record}) {
 
@@ -8,13 +9,15 @@ export default function Team({name, record}) {
 
     return (
         <div className='team'>
-            <div className='content'>
-                <div>
+            <div className='team-content'>
+                <div className='team-name'>
                     <h3>{name}</h3>
                     <h4>{record.wins}-{record.losses}-{record.otLosses}</h4>
                 </div>
-                <div>
-                    <button onClick={() => setExpanded(!expanded)}>Expand</button>
+                <div className='team-button'>
+                    <button onClick={() => setExpanded(!expanded)}>
+                        <ChevronDownIcon size={"medium"}></ChevronDownIcon>
+                    </button>
                 </div>
             </div>
             

@@ -4,11 +4,20 @@
     padding: 10px;
     margin: 0px 5px;
     width: 50%;
-    text-align: center;
 }
 
-.content {
+.team-content {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.team-name {
+    margin: 0px 10px;
+}
+
+.team-button {
+    margin: 0px 35px;
 }
