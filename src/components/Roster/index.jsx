@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import Player from '../Player';
+import './Roster.css';
 
 export default function Roster() {
 
@@ -22,10 +23,10 @@ export default function Roster() {
             assists: "6",
             points: "8"
         },
-    ]
+    ];
 
     return (
-        <div>
+        <div className='roster'>
             {players.map((player) =>
              <Player name={player.name} goals={player.goals} assists={player.assists} points={player.points}></Player>)}
         </div>
