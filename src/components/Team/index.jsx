@@ -2,6 +2,7 @@ import React from 'react';
 import './Team.css';
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@primer/octicons-react';
+import Roster from '../Roster';
 
 export default function Team({ record, teamInfo }) {
 
@@ -24,7 +25,7 @@ export default function Team({ record, teamInfo }) {
             
             {expanded && 
                 <div>
-                    Roster
+                    <Roster></Roster>
                 </div>
             }
         </div>
