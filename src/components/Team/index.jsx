@@ -3,7 +3,7 @@ import './Team.css';
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@primer/octicons-react';
 
-export default function Team({name, record}) {
+export default function Team({ record, teamInfo }) {
 
     const [expanded, setExpanded] = useState(false);
 
@@ -11,8 +11,8 @@ export default function Team({name, record}) {
         <div className='team'>
             <div className='team-content'>
                 <div className='team-name'>
-                    <h3>{name}</h3>
-                    <h4>{record.wins}-{record.losses}-{record.otLosses}</h4>
+                    <h3>{teamInfo.name}</h3>
+                    <h4>{record.wins}-{record.losses}-{record.ot}</h4>
                 </div>
                 <div className='team-button' onClick={() => setExpanded(!expanded)}>
                     {expanded ? 
