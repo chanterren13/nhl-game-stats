@@ -31,6 +31,7 @@ export default function Player({person}){
         })
     };
 
+    // Needs time to fetch then render
     if (stats) {
         return (
             <div className='player-content'>

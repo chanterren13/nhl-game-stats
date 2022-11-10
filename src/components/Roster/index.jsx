@@ -30,11 +30,18 @@ export default function Roster() {
         })
     };
 
+    const filterPlayers = (player) => {
+        if (player.position.code === "G") {
+            return ""
+        } else {
+            return <Player key={player.person.id} person={player.person}></Player>
+        }
+    }
+
     return (
         <div className='roster'>
             <button onClick={() => fetchRoster()}>Fetch Roster</button>
-            {roster && roster.map((player) =>
-             <Player key={player.person.id} person={player.person}></Player>)}
+            {roster && roster.map((player) => filterPlayers(player))}
         </div>
     );
 }
