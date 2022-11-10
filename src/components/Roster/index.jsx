@@ -1,34 +1,40 @@
 import React from 'react';
 import Player from '../Player';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import './Roster.css';
 
 export default function Roster() {
 
-    const players = [
-        {
-            name: "Bob Smith",
-            goals: "2",
-            assists: "3",
-            points: "5"
-        },
-        {
-            name: "Joe Smith",
-            goals: "1",
-            assists: "3",
-            points: "4"
-        },
-        {
-            name: "Mike Smith",
-            goals: "2",
-            assists: "6",
-            points: "8"
-        },
-    ];
+    const [roster, setRoster] = useState();
+
+    useEffect(() =>{
+        fetchRoster();
+    },[])
+
+    const fetchRoster = () => {
+        const config = {
+            method: 'get',
+            url: 'https://statsapi.web.nhl.com/api/v1/teams/10/roster',
+            headers: { }
+          };
+
+        axios(config)
+        .then((response) => {
+            let data = response.data;
+            console.log(data.roster);
+            setRoster(data.roster);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    };
 
     return (
         <div className='roster'>
-            {players.map((player) =>
-             <Player name={player.name} goals={player.goals} assists={player.assists} points={player.points}></Player>)}
+            <button onClick={() => fetchRoster()}>Fetch Roster</button>
+            {roster && roster.map((player) =>
+             <Player key={player.person.id} person={player.person}></Player>)}
         </div>
     );
 }
