@@ -33,9 +33,12 @@ function App() {
 
     return (
         <div>
-            <h1>NHL Game Stats</h1>
-            {schedule && schedule.map((game) => 
-            <Game key={game.gamePk} homeTeam={game.teams.home} awayTeam={game.teams.away}></Game>)}
+            <Header></Header>
+            <div>
+                {schedule && schedule.map((game) => 
+                    <Game key={game.gamePk} homeTeam={game.teams.home} awayTeam={game.teams.away}></Game>)}
+            </div>
+            <Footer></Footer>
         </div>
     );
 }
