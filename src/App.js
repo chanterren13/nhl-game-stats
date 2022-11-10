@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Game from './components/Game';
 import Header from './components/Header';
@@ -36,7 +35,7 @@ function App() {
         <div>
             <h1>NHL Game Stats</h1>
             {schedule && schedule.map((game) => 
-            <Game homeTeam={game.teams.home} awayTeam={game.teams.away}></Game>)}
+            <Game key={game.gamePk} homeTeam={game.teams.home} awayTeam={game.teams.away}></Game>)}
         </div>
     );
 }
