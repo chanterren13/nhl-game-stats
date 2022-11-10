@@ -2,10 +2,9 @@ import React from 'react';
 import './Game.css';
 import Team from '../Team';
 
-export default function Game() {
+export default function Game({homeTeam, awayTeam}) {
     return (
         <div>
-            <h3>Game</h3>
             <div className='team-box'>
                 <Team></Team>
                 <Team></Team>
