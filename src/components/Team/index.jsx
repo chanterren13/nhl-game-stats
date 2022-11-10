@@ -25,7 +25,7 @@ export default function Team({ record, teamInfo }) {
             
             {expanded && 
                 <div>
-                    <Roster></Roster>
+                    <Roster teamLink={teamInfo.link}></Roster>
                 </div>
             }
         </div>

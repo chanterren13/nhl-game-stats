@@ -8,28 +8,32 @@ export default function Player({person}){
     const [stats, setStats] = useState();
 
     useEffect(() => {
+        const fetchPlayer = () => {
+            let config = {
+                method: 'get',
+                url: `https://statsapi.web.nhl.com${person.link}/stats?stats=statsSingleSeason&season=20222023`,
+                headers: { 
+                  'Content-Type': 'application/json'
+                }
+              };
+    
+            axios(config)
+            .then((response) => {
+                let data = response.data;
+                console.log(config.url)
+                if (data.stats[0].splits[0].stat) {
+                    setStats(data.stats[0].splits[0].stat);
+                } else {
+                    setStats(null);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        };
+        // console.log("useEffect");
         fetchPlayer();
-    })
-
-    const fetchPlayer = () => {
-        let config = {
-            method: 'get',
-            url: `https://statsapi.web.nhl.com${person.link}/stats?stats=statsSingleSeason&season=20222023`,
-            headers: { 
-              'Content-Type': 'application/json'
-            }
-          };
-
-        axios(config)
-        .then((response) => {
-            let data = response.data;
-            // console.log(data.stats[0].splits[0])
-            setStats(data.stats[0].splits[0].stat);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    };
+    }, [person.link])
 
     // Needs time to fetch then render
     if (stats) {
