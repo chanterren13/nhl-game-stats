@@ -6,7 +6,8 @@ export default function Game({homeTeam, awayTeam}) {
     return (
         <div>
             <div className='team-box'>
-                <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team> VS
+                <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team> 
+                <span style={{"margin": "50px 0px"}}>VS</span>
                 <Team teamInfo={awayTeam.team} record={awayTeam.leagueRecord}></Team>
             </div>
         </div>
