@@ -9,26 +9,26 @@ export default function Roster({ teamLink }) {
     const [roster, setRoster] = useState();
 
     useEffect(() => {
-        const fetchRoster = () => {
-            const config = {
-                method: 'get',
-                url: `https://statsapi.web.nhl.com${teamLink}/roster`,
-                headers: { }
-              };
-    
-            axios(config)
-            .then((response) => {
-                let data = response.data;
-                console.log(data.roster);
-                setRoster(data.roster);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        };
-
         fetchRoster();
-    },[teamLink])
+    }, []);
+
+    const fetchRoster = () => {
+        const config = {
+            method: 'get',
+            url: `https://statsapi.web.nhl.com${teamLink}/roster`,
+            headers: { }
+          };
+
+        axios(config)
+        .then((response) => {
+            let data = response.data;
+            console.log(data.roster);
+            setRoster(data.roster);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    };
 
     const filterPlayers = (player) => {
         if (player.position.code === "G") {

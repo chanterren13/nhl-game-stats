@@ -3,7 +3,7 @@ import './Player.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function Player({person}){
+export default function Player({ person }){
 
     const [stats, setStats] = useState();
 
@@ -45,9 +45,10 @@ export default function Player({person}){
                 </div>
                 <div className='player-col'>
                     <h4>
-                        <span className='stat'>Goals: {stats.goals}</span>
-                        <span className='stat'>Assists: {stats.assists}</span>
-                        <span className='stat'>Points: {stats.points}</span> 
+                        <span className='stat'>G: {stats.goals}</span>
+                        <span className='stat'>A: {stats.assists}</span>
+                        <span className='stat'>P: {stats.points}</span>
+                        <span className='stat'>S%: {stats.shotPct}</span>  
                     </h4>
                 </div>
             </div>

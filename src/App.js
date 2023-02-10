@@ -35,7 +35,7 @@ function App() {
     return (
         <div>
             <Header></Header>
-            <div>
+            <div className='body'>
                 {schedule && schedule.map((game) => 
                     <Game key={game.gamePk} homeTeam={game.teams.home} awayTeam={game.teams.away}></Game>)}
             </div>
