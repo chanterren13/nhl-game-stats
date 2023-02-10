@@ -14,8 +14,8 @@ export default function Team({ record, teamInfo }) {
 
     useEffect(() => {
         fetchRoster();
-        setId(teamInfo.link.split("/")[4]);
-    }, [teamInfo.link])
+        setId(teamInfo.id.toString());
+    }, [teamInfo.link, teamInfo.id])
 
     const fetchRoster = async () => {
         const config = {
@@ -48,10 +48,15 @@ export default function Team({ record, teamInfo }) {
 
     return (
         <div className='team'>
-            <div className='team-content'>
-                <div className='team-name'>
-                    <h3>{teamInfo.name}</h3>
-                    <h4>{record.wins}-{record.losses}-{record.ot}</h4>
+            <div className='team-section'>
+                <div className='team-content'>
+                    <div className='team-img'>
+                        <img src={`media/${id}.png`} alt=""/>
+                    </div>
+                    <div className='team-name'>
+                        <h3>{teamInfo.name}</h3>
+                        <h4>{record.wins}-{record.losses}-{record.ot}</h4>
+                    </div>
                 </div>
                 <div className='team-button' onClick={() => handleExpand(!expanded)}>
                     {expanded ? 
