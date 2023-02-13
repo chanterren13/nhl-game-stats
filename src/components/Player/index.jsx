@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './Player.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function Player({ person }){
+export default function Player({ person, position }){
 
     const [stats, setStats] = useState();
 
-    useEffect(() => {
-        // console.log("useEffect");
-        fetchPlayer();
-    }, [person.link])
-
-    const fetchPlayer = () => {
+    const fetchPlayer = useCallback(() => {
         let config = {
             method: 'get',
             url: `https://statsapi.web.nhl.com${person.link}/stats?stats=statsSingleSeason&season=20222023`,
@@ -34,21 +29,26 @@ export default function Player({ person }){
         .catch((err) => {
             console.log(err);
         })
-    };
+    }, [person.link]);
+
+    useEffect(() => {
+        // console.log("useEffect");
+        fetchPlayer();
+    }, [person.link, fetchPlayer]);
 
     // Needs time to fetch then render
     if (stats) {
         return (
-            <div className='player-content'>
+            <div className='player-content player-content-sm'>
                 <div className='player-col'>
-                    <h4>{person.fullName}</h4>
+                    <h4>{person.fullName} - {position}</h4>
                 </div>
                 <div className='player-col'>
                     <h4>
                         <span className='stat'>G: {stats.goals}</span>
                         <span className='stat'>A: {stats.assists}</span>
                         <span className='stat'>P: {stats.points}</span>
-                        <span className='stat'>S%: {stats.shotPct}</span>  
+                        <span className='stat'>SH%: {stats.shotPct}</span>  
                     </h4>
                 </div>
             </div>
