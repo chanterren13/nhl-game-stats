@@ -10,7 +10,7 @@ function App() {
     const [schedule, setSchedule] = useState();
 
     useEffect(() => {
-        console.log("useEffect");
+        // console.log("useEffect");
         fetchSchedule();
     },[])
 

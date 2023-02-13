@@ -19,7 +19,7 @@ export default function Player({ person, position }){
         axios(config)
         .then((response) => {
             let data = response.data;
-            console.log(config.url)
+            // console.log(config.url)
             if (data.stats[0].splits[0].stat) {
                 setStats(data.stats[0].splits[0].stat);
             } else {
@@ -55,7 +55,7 @@ export default function Player({ person, position }){
         );
     } else {
         return (
-            <div></div>
+            <div className='player-content'>Loading Player</div>
         );
     }
 }
