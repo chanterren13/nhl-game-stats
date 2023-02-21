@@ -1,5 +1,8 @@
 .footer-content {
-    font-size: 1em;
     text-align: center;
     margin: 20px;
+}
+
+.signature {
+    font-size: 0.5em;
 }
