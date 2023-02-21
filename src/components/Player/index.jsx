@@ -45,6 +45,7 @@ export default function Player({ person, position }){
                 </div>
                 <div className='player-col'>
                     <h4>
+                        <span className='stat'>GP: {stats.games}</span>
                         <span className='stat'>G: {stats.goals}</span>
                         <span className='stat'>A: {stats.assists}</span>
                         <span className='stat'>P: {stats.points}</span>
@@ -55,7 +56,7 @@ export default function Player({ person, position }){
         );
     } else {
         return (
-            <div className='player-content'>Loading Player</div>
+            <div></div>
         );
     }
 }
