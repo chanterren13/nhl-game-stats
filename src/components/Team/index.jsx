@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './Team.css';
 import { useState } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@primer/octicons-react';
@@ -12,34 +12,27 @@ export default function Team({ record, teamInfo }) {
     const [roster, setRoster] = useState();
     const [id, setId] = useState();
 
-    useEffect(() => {
-        fetchRoster();
-        setId(teamInfo.id.toString());
-    }, [teamInfo.link, teamInfo.id])
-
-    const fetchRoster = async () => {
+    const fetchRoster = useCallback(() => {
         const config = {
             method: 'get',
             url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
             headers: { }
         };
 
-        try {
-            const res = await axios(config);
-            setRoster(res.data.roster);
-        } catch (e) {
-            console.log(e);
-        }
+        axios(config)
+        .then((res) => {
+            const cleanRoster = res.data.roster.filter((player) => {return player.position.code !== "G"});
+            cleanRoster.sort((a, b) => (a.person.fullName > b.person.fullName) ? 1 : ((b.person.fullName > a.person.fullName) ? -1 : 0));
+            setRoster(cleanRoster);
+        })
+        .catch((e) => console.log(e));
         
-    };
+    }, [teamInfo.link]);
 
-    const filterPlayers = (player) => {
-        if (player.position.code === "G") {
-            return ""
-        } else {
-            return <Player key={player.person.id} person={player.person}></Player>
-        }
-    };
+    useEffect(() => {
+        fetchRoster();
+        setId(teamInfo.id.toString());
+    }, [teamInfo.link, teamInfo.id, fetchRoster]);
 
     const handleExpand = (expand) => {
         setExpanded(expand);
@@ -47,9 +40,9 @@ export default function Team({ record, teamInfo }) {
     };
 
     return (
-        <div className='team'>
-            <div className='team-section'>
-                <div className='team-content'>
+        <div className='team team-sm'>
+            <div className='team-section row align-items-center' onClick={() => handleExpand(!expanded)}>
+                <div className='team-content col-11 col-md-10 col-sm-8'>
                     <div className='team-img'>
                         <img src={`media/${id}.png`} alt=""/>
                     </div>
@@ -58,7 +51,7 @@ export default function Team({ record, teamInfo }) {
                         <h4>{record.wins}-{record.losses}-{record.ot}</h4>
                     </div>
                 </div>
-                <div className='team-button' onClick={() => handleExpand(!expanded)}>
+                <div className='team-button col-1 col-md-2 col-sm-4'>
                     {expanded ? 
                     <ChevronUpIcon className='fade-in-fwd' size={"medium"}></ChevronUpIcon> 
                     : <ChevronDownIcon className='fade-in-fwd' size={"medium"}></ChevronDownIcon>
@@ -67,7 +60,7 @@ export default function Team({ record, teamInfo }) {
             </div>
             
             <div className='roster hidden' id={`roster-${id}`}>
-                {roster && roster.map((player) => filterPlayers(player))}
+                {roster && roster.map((player) => <Player key={player.person.id} person={player.person} position={player.position.abbreviation}></Player>)}
             </div>
         </div>
     );

@@ -14,3 +14,9 @@
 .content h1 {
     margin-left: 10px;
 }
+
+@media (max-width: 576px) {
+    .content {
+        font-size: 1.1em;
+    }
+}

@@ -11,5 +11,21 @@
 }
 
 .player-col {
-    margin: 0 5px;
+    padding: 0 5px;
+}
+
+@media (max-width: 576px) {
+    .player-content-sm {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-direction: column;
+        border-bottom: 1px solid #E9ECEF;
+        margin: 0px;
+        font-size: 0.9em;
+    }
+
+    .player-col {
+        margin-top: -10px;
+    }
 }

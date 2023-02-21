@@ -10,7 +10,7 @@ function App() {
     const [schedule, setSchedule] = useState();
 
     useEffect(() => {
-        console.log("useEffect");
+        // console.log("useEffect");
         fetchSchedule();
     },[])
 
@@ -37,7 +37,7 @@ function App() {
             <Header></Header>
             <div className='body'>
                 {schedule && schedule.map((game) => 
-                    <Game key={game.gamePk} homeTeam={game.teams.home} awayTeam={game.teams.away}></Game>)}
+                    <Game key={game.gamePk} homeTeam={game.teams.home} awayTeam={game.teams.away} date={game.gameDate}></Game>)}
             </div>
             <Footer></Footer>
         </div>
