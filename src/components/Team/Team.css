@@ -10,7 +10,7 @@
     /* display: flex;
     justify-content: space-between;
     align-items: center; */
-    border: 2px solid #E9ECEF;
+    border: 1px solid #E9ECEF;
     border-radius: 15px;
     background-color: #343A40;
 }
@@ -36,7 +36,7 @@
     justify-content: center;
 }
 
-.team-button:hover {
+.team-section:hover {
     cursor: pointer;
 }
 
