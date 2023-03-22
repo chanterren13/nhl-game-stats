@@ -1,8 +1,12 @@
-import { sequelize } from "sequelize";
+import { sequelize } from "../datasource.js";
 import { DataTypes } from "sequelize";
 
 export const Player = sequelize.define("Player", {
   name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  position: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -19,7 +23,7 @@ export const Player = sequelize.define("Player", {
     allowNull: false,
   },
   shotPct: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.DOUBLE,
     allowNull: false,
   },
   ptStrk: {
@@ -34,7 +38,6 @@ export const Player = sequelize.define("Player", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    primaryKey: true,
   },
 });
-
-Team.hasMany(Player);
