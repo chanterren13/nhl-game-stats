@@ -1,6 +1,9 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { sequelize } from "./datasource.js";
+import { getSchedule } from "./scripts/initializeDB.js";
+import { Team } from "./models/team.js";
+import { Player } from "./models/player.js";
 
 export const app = express();
 
@@ -20,6 +23,52 @@ app.use(function (req, res, next) {
   console.log("HTTP request", req.method, req.url, req.body);
   next();
 });
+
+app.get("/schedules", async function (req, res, next) {
+    const schedule = await getSchedule();
+    if (!schedule) {
+        res.status(500).json({error: "Error fetching schedule."});
+        return;
+    }
+    res.json(schedule);
+});
+
+app.get("/teams", async function (req, res, next) {
+    // console.log(req.query.ids.split(","));
+    const ids = req.query.ids.split(",");
+    const info = [];
+    for (const id of ids) {
+        const team = await Team.findByPk(id);
+        if (!team) {
+            res.status(404).json({error: `Couldn't find team with id ${id}`});
+            return;
+        }
+        info.push(team);
+    }
+    res.json(info);
+});
+
+app.get("/teams/:id/roster", async function (req, res, next) {
+    // console.log(Object.keys(req.query).length === 0);
+    const order = Object.keys(req.query).length === 0 ? [['goals', 'DESC']] : [[req.query.field, req.query.order]];
+    const roster = await Player.findAll({
+        where: {
+            TeamApiId: parseInt(req.params.id),
+        },
+        attributes: {
+            exclude: ['createdAt', 'updatedAt', 'TeamApiId']
+        },
+        order: order
+    });
+
+    if (roster.length === 0) {
+        res.status(404).json({error: `Couldn't find roster for team with id ${req.params.id}`});
+        return;
+    }
+
+    res.json(roster);
+
+})
 
 const PORT = 3000;
 
