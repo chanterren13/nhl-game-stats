@@ -3,9 +3,16 @@ import bodyParser from "body-parser";
 import { sequelize } from "./datasource.js";
 import { getSchedule } from "./scripts/extractionUtils.js";
 import { DBService } from "./services/DBService.js";
+import cors from "cors";
 
 export const app = express();
 
+const corsOptions = {
+    origin: "http://localhost:3000",
+    optionssuccessStatus: 200,
+    credentials: true,
+}
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 try {
@@ -69,7 +76,7 @@ app.get("/teams/:id/roster", async function (req, res, next) {
   res.json(roster);
 });
 
-const PORT = 3000;
+const PORT = 5000;
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);
