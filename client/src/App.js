@@ -16,15 +16,15 @@ function App() {
   const fetchSchedule = () => {
     let config = {
       method: "get",
-      url: "https://statsapi.web.nhl.com/api/v1/schedule",
+    //   url: "https://statsapi.web.nhl.com/api/v1/schedule",
+        url: "http://localhost:5000/schedules",
       headers: {},
     };
 
     axios(config)
       .then((response) => {
-        let data = response.data;
-        //console.log(data.dates[0].games);
-        setSchedule(data.dates[0].games);
+        // console.log(response.data);
+        setSchedule(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -38,10 +38,10 @@ function App() {
         {schedule &&
           schedule.map((game) => (
             <Game
-              key={game.gamePk}
-              homeTeam={game.teams.home}
-              awayTeam={game.teams.away}
-              date={game.gameDate}
+              key={game.id}
+              homeTeam={game.home}
+              awayTeam={game.away}
+              date={game.date}
             ></Game>
           ))}
       </div>

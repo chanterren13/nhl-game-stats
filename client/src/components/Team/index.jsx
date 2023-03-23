@@ -14,26 +14,18 @@ export default function Team({ record, teamInfo }) {
   const fetchRoster = useCallback(() => {
     const config = {
       method: "get",
-      url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
+    //   url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
+        url: `http://localhost:5000/teams/${teamInfo.id}/roster`,
       headers: {},
     };
 
     axios(config)
       .then((res) => {
-        const cleanRoster = res.data.roster.filter((player) => {
-          return player.position.code !== "G";
-        });
-        cleanRoster.sort((a, b) =>
-          a.person.fullName > b.person.fullName
-            ? 1
-            : b.person.fullName > a.person.fullName
-            ? -1
-            : 0
-        );
-        setRoster(cleanRoster);
+        
+        setRoster(res.data);
       })
       .catch((e) => console.log(e));
-  }, [teamInfo.link]);
+  }, [teamInfo.id]);
 
   useEffect(() => {
     fetchRoster();
@@ -53,7 +45,7 @@ export default function Team({ record, teamInfo }) {
       >
         <div className="team-content col-11 col-md-10 col-sm-8">
           <div className="team-img">
-            <img src={`media/${id}.png`} alt="" />
+            <img src={process.env.PUBLIC_URL + `/media/${id}.png`} alt="" />
           </div>
           <div className="team-name">
             <h3>{teamInfo.name}</h3>
@@ -81,9 +73,8 @@ export default function Team({ record, teamInfo }) {
         {roster &&
           roster.map((player) => (
             <Player
-              key={player.person.id}
-              person={player.person}
-              position={player.position.abbreviation}
+              key={player.apiId}
+              info={player}
             ></Player>
           ))}
       </div>
