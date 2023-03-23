@@ -1,9 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { sequelize } from "./datasource.js";
-import { getSchedule } from "./scripts/initializeDB.js";
-import { Team } from "./models/team.js";
-import { Player } from "./models/player.js";
+import { getSchedule } from "./scripts/extractionUtils.js";
+import { DBService } from "./services/DBService.js";
 
 export const app = express();
 
@@ -18,6 +17,8 @@ try {
 } catch (error) {
   console.error("Unable to connect to the database:", error);
 }
+
+const dbService = new DBService();
 
 app.use(function (req, res, next) {
   console.log("HTTP request", req.method, req.url, req.body);
@@ -38,7 +39,7 @@ app.get("/teams", async function (req, res, next) {
     const ids = req.query.ids.split(",");
     const info = [];
     for (const id of ids) {
-        const team = await Team.findByPk(id);
+        const team = await dbService.getTeamById(id);
         if (!team) {
             res.status(404).json({error: `Couldn't find team with id ${id}`});
             return;
@@ -51,15 +52,7 @@ app.get("/teams", async function (req, res, next) {
 app.get("/teams/:id/roster", async function (req, res, next) {
     // console.log(Object.keys(req.query).length === 0);
     const order = Object.keys(req.query).length === 0 ? [['goals', 'DESC']] : [[req.query.field, req.query.order]];
-    const roster = await Player.findAll({
-        where: {
-            TeamApiId: parseInt(req.params.id),
-        },
-        attributes: {
-            exclude: ['createdAt', 'updatedAt', 'TeamApiId']
-        },
-        order: order
-    });
+    const roster = await dbService.getRoster(parseInt(req.params.id), order);
 
     if (roster.length === 0) {
         res.status(404).json({error: `Couldn't find roster for team with id ${req.params.id}`});
@@ -67,7 +60,6 @@ app.get("/teams/:id/roster", async function (req, res, next) {
     }
 
     res.json(roster);
-
 })
 
 const PORT = 3000;
