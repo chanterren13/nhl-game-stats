@@ -1,21 +1,24 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import "./Team.css";
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@primer/octicons-react";
 // import Roster from '../Roster';
 import axios from "axios";
 import Player from "../Player";
+import { SortMethodContext } from "../../contexts/SortMethodContext";
 
 export default function Team({ record, teamInfo }) {
   const [expanded, setExpanded] = useState(false);
   const [roster, setRoster] = useState();
   const [id, setId] = useState();
 
+  const sortMethod = useContext(SortMethodContext);
+
   const fetchRoster = useCallback(() => {
     const config = {
       method: "get",
     //   url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
-        url: `http://localhost:5000/teams/${teamInfo.id}/roster`,
+        url: `http://localhost:5000/teams/${teamInfo.id}/roster?field=${sortMethod.options.method}&order=${sortMethod.options.order}`,
       headers: {},
     };
 
@@ -25,7 +28,7 @@ export default function Team({ record, teamInfo }) {
         setRoster(res.data);
       })
       .catch((e) => console.log(e));
-  }, [teamInfo.id]);
+  }, [teamInfo.id, sortMethod.options]);
 
   useEffect(() => {
     fetchRoster();

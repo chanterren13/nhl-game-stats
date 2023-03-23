@@ -9,6 +9,10 @@
 
   /* background: rgb(255,255,255);
     background: linear-gradient(96deg, rgba(255,255,255,0.028448879551820738) 23%, rgba(31,34,34,0.9668242296918768) 84%); */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .content h1 {
