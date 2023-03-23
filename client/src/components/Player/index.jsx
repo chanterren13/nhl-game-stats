@@ -1,9 +1,7 @@
 import React from "react";
 import "./Player.css";
 
-
 export default function Player({ info }) {
-
   // Needs time to fetch then render
   return (
     <div className="player-content player-content-sm">

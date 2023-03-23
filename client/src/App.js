@@ -16,8 +16,8 @@ function App() {
   const fetchSchedule = () => {
     let config = {
       method: "get",
-    //   url: "https://statsapi.web.nhl.com/api/v1/schedule",
-        url: "http://localhost:5000/schedules",
+      //   url: "https://statsapi.web.nhl.com/api/v1/schedule",
+      url: "http://localhost:5000/schedules",
       headers: {},
     };
 

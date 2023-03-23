@@ -17,14 +17,13 @@ export default function Team({ record, teamInfo }) {
   const fetchRoster = useCallback(() => {
     const config = {
       method: "get",
-    //   url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
-        url: `http://localhost:5000/teams/${teamInfo.id}/roster?field=${sortMethod.options.method}&order=${sortMethod.options.order}`,
+      //   url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
+      url: `http://localhost:5000/teams/${teamInfo.id}/roster?field=${sortMethod.options.method}&order=${sortMethod.options.order}`,
       headers: {},
     };
 
     axios(config)
       .then((res) => {
-        
         setRoster(res.data);
       })
       .catch((e) => console.log(e));
@@ -75,10 +74,7 @@ export default function Team({ record, teamInfo }) {
       <div className="roster hidden" id={`roster-${id}`}>
         {roster &&
           roster.map((player) => (
-            <Player
-              key={player.apiId}
-              info={player}
-            ></Player>
+            <Player key={player.apiId} info={player}></Player>
           ))}
       </div>
     </div>

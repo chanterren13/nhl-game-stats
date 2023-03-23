@@ -7,9 +7,9 @@ import { SortMethodProvider } from "./contexts/SortMethodContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <SortMethodProvider>
-        <App />
-    </SortMethodProvider>
+  <SortMethodProvider>
+    <App />
+  </SortMethodProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -8,10 +8,10 @@ import cors from "cors";
 export const app = express();
 
 const corsOptions = {
-    origin: "http://localhost:3000",
-    optionssuccessStatus: 200,
-    credentials: true,
-}
+  origin: "http://localhost:3000",
+  optionssuccessStatus: 200,
+  credentials: true,
+};
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
@@ -65,11 +65,9 @@ app.get("/teams/:id/roster", async function (req, res, next) {
   const roster = await dbService.getRoster(parseInt(req.params.id), order);
 
   if (roster.length === 0) {
-    res
-      .status(404)
-      .json({
-        error: `Couldn't find roster for team with id ${req.params.id}`,
-      });
+    res.status(404).json({
+      error: `Couldn't find roster for team with id ${req.params.id}`,
+    });
     return;
   }
 

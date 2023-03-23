@@ -13,8 +13,8 @@ export const Player = sequelize.define(
       allowNull: false,
     },
     gamesPlayed: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     goals: {
       type: DataTypes.INTEGER,

@@ -1,25 +1,23 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { SortMethodContext } from "../../contexts/SortMethodContext";
 import "./Header.css";
 
 export default function Header() {
+  const sortMethod = useContext(SortMethodContext);
 
-    const sortMethod = useContext(SortMethodContext);
-
-    const handleClick = () => {
-        if (sortMethod.options.method === "goals") {
-            sortMethod.setMethod({
-                method: "name",
-                order: "ASC"
-            });
-            return;
-        }
-        sortMethod.setMethod({
-            method: "goals",
-            order: "DESC"
-        });
-        
+  const handleClick = () => {
+    if (sortMethod.options.method === "goals") {
+      sortMethod.setMethod({
+        method: "name",
+        order: "ASC",
+      });
+      return;
     }
+    sortMethod.setMethod({
+      method: "goals",
+      order: "DESC",
+    });
+  };
 
   return (
     <div className="content">
@@ -27,9 +25,7 @@ export default function Header() {
       <div>
         Sorting by: {sortMethod.options.method}, {sortMethod.options.order}
       </div>
-      <button onClick={handleClick}>
-        Change Sort
-      </button>
+      <button onClick={handleClick}>Change Sort</button>
     </div>
   );
 }
