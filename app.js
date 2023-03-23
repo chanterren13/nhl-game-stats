@@ -26,41 +26,48 @@ app.use(function (req, res, next) {
 });
 
 app.get("/schedules", async function (req, res, next) {
-    const schedule = await getSchedule();
-    if (!schedule) {
-        res.status(500).json({error: "Error fetching schedule."});
-        return;
-    }
-    res.json(schedule);
+  const schedule = await getSchedule();
+  if (!schedule) {
+    res.status(500).json({ error: "Error fetching schedule." });
+    return;
+  }
+  res.json(schedule);
 });
 
 app.get("/teams", async function (req, res, next) {
-    // console.log(req.query.ids.split(","));
-    const ids = req.query.ids.split(",");
-    const info = [];
-    for (const id of ids) {
-        const team = await dbService.getTeamById(id);
-        if (!team) {
-            res.status(404).json({error: `Couldn't find team with id ${id}`});
-            return;
-        }
-        info.push(team);
+  // console.log(req.query.ids.split(","));
+  const ids = req.query.ids.split(",");
+  const info = [];
+  for (const id of ids) {
+    const team = await dbService.getTeamById(id);
+    if (!team) {
+      res.status(404).json({ error: `Couldn't find team with id ${id}` });
+      return;
     }
-    res.json(info);
+    info.push(team);
+  }
+  res.json(info);
 });
 
 app.get("/teams/:id/roster", async function (req, res, next) {
-    // console.log(Object.keys(req.query).length === 0);
-    const order = Object.keys(req.query).length === 0 ? [['goals', 'DESC']] : [[req.query.field, req.query.order]];
-    const roster = await dbService.getRoster(parseInt(req.params.id), order);
+  // console.log(Object.keys(req.query).length === 0);
+  const order =
+    Object.keys(req.query).length === 0
+      ? [["goals", "DESC"]]
+      : [[req.query.field, req.query.order]];
+  const roster = await dbService.getRoster(parseInt(req.params.id), order);
 
-    if (roster.length === 0) {
-        res.status(404).json({error: `Couldn't find roster for team with id ${req.params.id}`});
-        return;
-    }
+  if (roster.length === 0) {
+    res
+      .status(404)
+      .json({
+        error: `Couldn't find roster for team with id ${req.params.id}`,
+      });
+    return;
+  }
 
-    res.json(roster);
-})
+  res.json(roster);
+});
 
 const PORT = 3000;
 

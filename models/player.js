@@ -45,7 +45,7 @@ export const Player = sequelize.define(
   },
   {
     hooks: {
-        //check if goals and points have been updated, then update streaks
+      //check if goals and points have been updated, then update streaks
       beforeUpdate: (player) => {
         player.gStrk = player.changed("goals") ? player.gStrk++ : 0;
         player.ptStrk = player.changed("points") ? player.ptStrk++ : 0;
