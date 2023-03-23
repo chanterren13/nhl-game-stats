@@ -2,36 +2,36 @@ import axios from "axios";
 import { DBService } from "../services/DBService.js";
 
 export const updateTeams = async (ids) => {
-    const dbService = new DBService();
-    const apiString = ids.join(',');
-    const config = {
-        url: `https://statsapi.web.nhl.com/api/v1/teams?expand=team.stats&teamIds=${apiString}`,
-        method: "GET",
-      };
-    
-      const res = await axios(config);
+  const dbService = new DBService();
+  const apiString = ids.join(",");
+  const config = {
+    url: `https://statsapi.web.nhl.com/api/v1/teams?expand=team.stats&teamIds=${apiString}`,
+    method: "GET",
+  };
 
-      for (const team of res.data.teams) {
-        const info = team.teamStats[0].splits[0];
-        // update team wins/losses/ot losses
-        const teamStats = {
-          wins: info.stat.wins,
-          losses: info.stat.losses,
-          otLosses: info.stat.ot,
-        };
-        const check = await dbService.updateTeam(info.team.id, teamStats);
-        
-        if (!check) {
-          console.log(`error at ${teamStats.name}`);
-          return;
-        }
-      }
-}
+  const res = await axios(config);
+
+  for (const team of res.data.teams) {
+    const info = team.teamStats[0].splits[0];
+    // update team wins/losses/ot losses
+    const teamStats = {
+      wins: info.stat.wins,
+      losses: info.stat.losses,
+      otLosses: info.stat.ot,
+    };
+    const check = await dbService.updateTeam(info.team.id, teamStats);
+
+    if (!check) {
+      console.log(`error at ${teamStats.name}`);
+      return;
+    }
+  }
+};
 
 export const updatePlayers = async (id) => {
-// get all player info
-const dbService = new DBService();
-const config = {
+  // get all player info
+  const dbService = new DBService();
+  const config = {
     url: `https://statsapi.web.nhl.com/api/v1/teams/${id}/roster`,
     method: "GET",
   };
@@ -80,26 +80,26 @@ const config = {
       .catch((err) => console.error(err));
     // console.log(obj);
   }
-}
+};
 
 export const parseSchedule = (schedule) => {
-    const ids = [];
-    schedule.forEach((game) => {
-        ids.push(game.home.team.id, game.away.team.id);
-    });
-    return ids;
-}
+  const ids = [];
+  schedule.forEach((game) => {
+    ids.push(game.home.team.id, game.away.team.id);
+  });
+  return ids;
+};
 
 export const updateDB = async (schedule) => {
-    const ids = parseSchedule(schedule);
-    await updateTeams(ids);
-    for (const id of ids) {
-        await updatePlayers(id);
-    }
-}
+  const ids = parseSchedule(schedule);
+  await updateTeams(ids);
+  for (const id of ids) {
+    await updatePlayers(id);
+  }
+};
 
 export const getTeamInfo = async () => {
-    const dbService = new DBService();
+  const dbService = new DBService();
   const config = {
     url: "https://statsapi.web.nhl.com/api/v1/teams?expand=team.stats",
     method: "GET",
@@ -189,9 +189,13 @@ export const getRosterInfo = async (id) => {
 };
 
 // get schedule??
-export const getSchedule = async () => {
+export const getSchedule = async (date = null) => {
+  let url = "https://statsapi.web.nhl.com/api/v1/schedule";
+  if (date) {
+    url = url + `?date=${date}`;
+  }
   const scheduleConfig = {
-    url: "https://statsapi.web.nhl.com/api/v1/schedule",
+    url: url,
     method: "GET",
   };
 
