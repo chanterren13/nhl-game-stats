@@ -68,6 +68,7 @@ export const updatePlayers = async (id) => {
           assists: data.assists,
           points: data.points,
           shotPct: data.shotPct,
+          gamesPlayed: data.games,
         };
 
         const player = await dbService.updatePlayer(obj.apiId, playerStats);
@@ -175,6 +176,7 @@ export const getRosterInfo = async (id) => {
           position: obj.position,
           TeamApiId: obj.teamId,
           apiId: obj.apiId,
+          gamesPlayed: data.games,
         };
 
         const player = await dbService.addPlayer(playerStats);

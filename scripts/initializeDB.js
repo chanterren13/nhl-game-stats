@@ -1,4 +1,5 @@
 import { getTeamInfo, getRosterInfo } from "./extractionUtils.js";
+import { sequelize } from "../datasource.js";
 
 const extractData = async () => {
   const teamIds = await getTeamInfo();
