@@ -1,9 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { sequelize } from "./datasource.js";
-import { getSchedule } from "./scripts/extractionUtils.js";
+import { getSchedule, updateDB } from "./scripts/extractionUtils.js";
 import { DBService } from "./services/DBService.js";
 import cors from "cors";
+import cron from "node-cron";
 
 export const app = express();
 
@@ -24,6 +25,18 @@ try {
 } catch (error) {
   console.error("Unable to connect to the database:", error);
 }
+
+// Update DB at 5AM
+cron.schedule('0 5 * * *', async () => {
+    console.log("Updating DB...");
+    // Get yesterdays schedule then update the players from yesterday's game
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const dateStr = [yesterday.getFullYear(), yesterday.getMonth() + 1, yesterday.getDate()].join('-');
+    console.log(`Getting schedule for ${dateStr}...`);
+    const schedule = await getSchedule(dateStr);
+    await updateDB(schedule);
+});
 
 const dbService = new DBService();
 
