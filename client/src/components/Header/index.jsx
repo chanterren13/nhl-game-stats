@@ -1,31 +1,52 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { SortMethodContext } from "../../contexts/SortMethodContext";
 import "./Header.css";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
-export default function Header() {
+const Header = () => {
   const sortMethod = useContext(SortMethodContext);
+  const [key, setKey] = useState("0");
 
-  const handleClick = () => {
-    if (sortMethod.options.method === "goals") {
-      sortMethod.setMethod({
-        method: "name",
-        order: "ASC",
-      });
-      return;
-    }
-    sortMethod.setMethod({
+  const sortOptions = [
+    {
       method: "goals",
       order: "DESC",
-    });
+    },
+    {
+      method: "goals",
+      order: "ASC",
+    },
+    {
+      method: "name",
+      order: "ASC",
+    },
+  ];
+
+  const selectSort = (eventKey) => {
+    sortMethod.setMethod(sortOptions[eventKey]);
+    setKey(eventKey);
+    console.log(sortOptions[eventKey]);
   };
 
   return (
-    <div className="content">
-      <h1>NHL Game Stats</h1>
-      <div>
-        Sorting by: {sortMethod.options.method}, {sortMethod.options.order}
-      </div>
-      <button onClick={handleClick}>Change Sort</button>
-    </div>
+    <>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand className="fs-1">NHL Game Stats</Navbar.Brand>
+          <Nav onSelect={selectSort} activeKey={key}>
+            <NavDropdown title="Sort By">
+              <NavDropdown.Item eventKey="0">Goals, DESC</NavDropdown.Item>
+              <NavDropdown.Item eventKey="1">Goals, ASC</NavDropdown.Item>
+              <NavDropdown.Item eventKey="2">Name, ASC</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Container>
+      </Navbar>
+    </>
   );
-}
+};
+
+export default Header;

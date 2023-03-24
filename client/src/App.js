@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Container from "react-bootstrap/esm/Container";
 
 function App() {
   const [schedule, setSchedule] = useState();
@@ -32,9 +33,9 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="bg-dark text-light">
       <Header></Header>
-      <div className="body">
+      <Container>
         {schedule &&
           schedule.map((game) => (
             <Game
@@ -44,8 +45,8 @@ function App() {
               date={game.date}
             ></Game>
           ))}
-      </div>
-      <Footer></Footer>
+          <Footer></Footer>
+      </Container>
     </div>
   );
 }

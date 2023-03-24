@@ -3,11 +3,14 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer className="footer-content">
-      <p>Check the stats of every player from every night's game!</p>
-      <p className="signature">
-        Created by: <a href="https://github.com/chanterren13">@chanterren13</a>
-      </p>
-    </footer>
+    <>
+      <div className="footer-content">
+        <p>Check the stats of every player from every night's game!</p>
+        <p className="signature">
+          Created by:{" "}
+          <a href="https://github.com/chanterren13">@chanterren13</a>
+        </p>
+      </div>
+    </>
   );
 }

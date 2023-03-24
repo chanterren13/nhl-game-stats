@@ -1,6 +1,11 @@
 .footer-content {
   text-align: center;
-  margin: 20px;
+  margin-top: 20px;
+  height: 100px;
+}
+
+.footer-content p {
+    margin: 0;
 }
 
 .signature {

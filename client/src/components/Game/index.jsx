@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Game.css";
 import Team from "../Team";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function Game({ homeTeam, awayTeam, date }) {
   const [gameTime, setGameTime] = useState();
@@ -27,11 +29,17 @@ export default function Game({ homeTeam, awayTeam, date }) {
   return (
     <div>
       {gameTime}
-      <div className="team-box">
-        <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team>
-        <span className="vs">VS</span>
-        <Team teamInfo={awayTeam.team} record={awayTeam.leagueRecord}></Team>
-      </div>
+      <Row className="g-0">
+        <Col lg={5} md={5} xs={12}>
+            <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team>
+        </Col>
+        <Col lg={2} md={2} xs={12} className="d-flex flex-wrap justify-content-center">
+            <span className="vs">VS</span>
+        </Col>
+        <Col lg={5} md={5} xs={12}>
+            <Team teamInfo={awayTeam.team} record={awayTeam.leagueRecord}></Team>
+        </Col>
+      </Row>
     </div>
   );
 }
