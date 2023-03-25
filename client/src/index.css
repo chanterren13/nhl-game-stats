@@ -8,6 +8,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
     /* height: 100%;
     overflow: auto; */
+    min-height: 100vh;
+    background-color: #212529;
 }
 
 code {
@@ -163,6 +165,3 @@ code {
   }
 }
 
-.align-items-center {
-  align-items: center;
-}

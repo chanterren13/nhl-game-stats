@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="bg-dark text-light">
       <Header></Header>
-      <Container>
+      <Container className="mt-3">
         {schedule &&
           schedule.map((game) => (
             <Game

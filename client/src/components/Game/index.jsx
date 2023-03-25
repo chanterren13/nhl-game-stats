@@ -30,13 +30,13 @@ export default function Game({ homeTeam, awayTeam, date }) {
     <div>
       {gameTime}
       <Row className="g-0">
-        <Col lg={5} md={5} xs={12}>
+        <Col >
             <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team>
         </Col>
-        <Col lg={2} md={2} xs={12} className="d-flex flex-wrap justify-content-center">
+        <Col lg={1} xs={12} className="d-flex flex-wrap justify-content-center">
             <span className="vs">VS</span>
         </Col>
-        <Col lg={5} md={5} xs={12}>
+        <Col >
             <Team teamInfo={awayTeam.team} record={awayTeam.leagueRecord}></Team>
         </Col>
       </Row>
