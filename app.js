@@ -36,6 +36,7 @@ cron.schedule('0 5 * * *', async () => {
     console.log(`Getting schedule for ${dateStr}...`);
     const schedule = await getSchedule(dateStr);
     await updateDB(schedule);
+    console.log("Updated!");
 });
 
 const dbService = new DBService();

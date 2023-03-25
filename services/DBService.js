@@ -34,6 +34,7 @@ export class DBService {
       where: {
         apiId: id,
       },
+      individualHooks: true,
     });
   }
 
