@@ -3,28 +3,41 @@ import Game from "./components/Game";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import Container from "react-bootstrap/esm/Container";
+import ScrollButton from "./components/ScrollButton";
 
 function App() {
   const [schedule, setSchedule] = useState();
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    // console.log("useEffect");
     fetchSchedule();
+  }, []);
+
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+        const scrollPos = window.scrollY;
+        if (scrollPos > 60) {
+            setShowButton(true);
+        } else {
+            setShowButton(false);
+        }
+      }
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const fetchSchedule = () => {
     let config = {
       method: "get",
-      //   url: "https://statsapi.web.nhl.com/api/v1/schedule",
       url: "http://localhost:5000/schedules",
       headers: {},
     };
 
     axios(config)
       .then((response) => {
-        // console.log(response.data);
         setSchedule(response.data);
       })
       .catch((err) => {
@@ -45,8 +58,9 @@ function App() {
               date={game.date}
             ></Game>
           ))}
-          <Footer></Footer>
+        <Footer></Footer>
       </Container>
+      {showButton && <ScrollButton></ScrollButton>}
     </div>
   );
 }
