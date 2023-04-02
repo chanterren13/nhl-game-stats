@@ -4,7 +4,7 @@ import Team from "../Team";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-export default function Game({ homeTeam, awayTeam, date }) {
+const Game = ({ homeTeam, awayTeam, date }) => {
   const [gameTime, setGameTime] = useState();
 
   const parseDate = (date) => {
@@ -28,7 +28,7 @@ export default function Game({ homeTeam, awayTeam, date }) {
 
   return (
     <div>
-      {gameTime}
+      @ {gameTime}
       <Row className="g-0">
         <Col >
             <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team>
@@ -43,3 +43,5 @@ export default function Game({ homeTeam, awayTeam, date }) {
     </div>
   );
 }
+
+export default Game;

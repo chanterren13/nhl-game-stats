@@ -11,7 +11,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Collapse from "react-bootstrap/esm/Collapse";
 
-export default function Team({ record, teamInfo }) {
+const Team = ({ record, teamInfo }) => {
   const [expanded, setExpanded] = useState(false);
   const [roster, setRoster] = useState();
   const [id, setId] = useState();
@@ -21,9 +21,10 @@ export default function Team({ record, teamInfo }) {
   const fetchRoster = useCallback(() => {
     const config = {
       method: "get",
-      //   url: `https://statsapi.web.nhl.com${teamInfo.link}/roster`,
-      url: `http://localhost:5000/teams/${teamInfo.id}/roster?field=${sortMethod.options.method}&order=${sortMethod.options.order}`,
-      headers: {},
+      url: `${process.env.REACT_APP_SERVER_DOMAIN}/teams/${teamInfo.id}/roster?field=${sortMethod.options.method}&order=${sortMethod.options.order}`,
+      headers: {
+        "ngrok-skip-browser-warning": true,
+      },
     };
 
     axios(config)
@@ -38,21 +39,11 @@ export default function Team({ record, teamInfo }) {
     setId(teamInfo.id.toString());
   }, [teamInfo.link, teamInfo.id, fetchRoster]);
 
-  const handleExpand = (expand) => {
-    setExpanded(expand);
-    // document.getElementById(`roster-${id}`).classList.toggle("hidden");
-  };
-
   return (
     <div className="team team-sm">
-      {/* <div
-        className="team-section row align-items-center"
-        onClick={() => handleExpand(!expanded)}
-      ></div> */}
-
       <Row
         className="team-section align-items-center"
-        onClick={() => handleExpand(!expanded)}
+        onClick={() => setExpanded(!expanded)}
       >
         <Col xs={10} lg={11}>
           <div className="team-content col-11 col-md-10 col-sm-8 align-items-center">
@@ -96,10 +87,8 @@ export default function Team({ record, teamInfo }) {
           </Stack>
         </div>
       </Collapse>
-
-      {/* <div className="roster hidden" id={`roster-${id}`}>
-        
-      </div> */}
     </div>
   );
 }
+
+export default Team;

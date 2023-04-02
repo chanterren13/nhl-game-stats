@@ -15,8 +15,6 @@ const ScrollButton = () => {
         <div className="scroll-button-section">
             <button className="scroll-button" onClick={scrollToTop} style={{
                 backgroundImage: `url(${process.env.PUBLIC_URL}/media/up-arrow.png)`,
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center"
             }}></button>
         </div>
     )
