@@ -4,12 +4,20 @@
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
-  border-bottom: 1px solid #e9ecef;
+  border: 1px solid #e9ecef;
   /* width: 100%; */
 }
 
 .player-col {
   padding: 0 5px;
+}
+
+.stats {
+    font-size: 1vw;
+}
+
+.name {
+    font-size: 1.5vw;
 }
 
 @media (max-width: 576px) {
@@ -25,5 +33,13 @@
 
   .player-col {
     margin-top: -10px;
+  }
+
+  .stats {
+    font-size: 4vw;
+  }
+
+  .name {
+    font-size: 4vw;
   }
 }
