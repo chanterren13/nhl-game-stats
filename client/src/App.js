@@ -7,7 +7,7 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import Container from "react-bootstrap/esm/Container";
 import ScrollButton from "./components/ScrollButton";
 
-function App() {
+const App = () => {
   const [schedule, setSchedule] = useState();
   const [showButton, setShowButton] = useState(false);
 
@@ -30,10 +30,13 @@ function App() {
   }, []);
 
   const fetchSchedule = () => {
+    console.log(`${process.env.REACT_APP_SERVER_DOMAIN}/schedules`);
     let config = {
       method: "get",
-      url: "http://localhost:5000/schedules",
-      headers: {},
+      url: `${process.env.REACT_APP_SERVER_DOMAIN}/schedules`,
+      headers: {
+        "ngrok-skip-browser-warning": true,
+      },
     };
 
     axios(config)

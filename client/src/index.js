@@ -7,6 +7,7 @@ import { SortMethodProvider } from "./contexts/SortMethodContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+document.title = "NHL Game Stats"
 root.render(
   <SortMethodProvider>
     <App />

@@ -9,7 +9,7 @@ import cron from "node-cron";
 export const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: true,
   optionssuccessStatus: 200,
   credentials: true,
 };
@@ -35,13 +35,13 @@ cron.schedule('0 5 * * *', async () => {
     const dateStr = [yesterday.getFullYear(), yesterday.getMonth() + 1, yesterday.getDate()].join('-');
     console.log(`Getting schedule for ${dateStr}...`);
     const schedule = await getSchedule(dateStr);
-    await updateDB(schedule);
-    console.log("Updated!");
+    updateDB(schedule).then(() => console.log("Updated!"));
+    
 });
 
 const dbService = new DBService();
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   console.log("HTTP request", req.method, req.url, req.body);
   next();
 });
@@ -55,7 +55,7 @@ app.get("/schedules", async function (req, res, next) {
   res.json(schedule);
 });
 
-app.get("/teams", async function (req, res, next) {
+app.get("/teams", async (req, res, next) => {
   // console.log(req.query.ids.split(","));
   const ids = req.query.ids.split(",");
   const info = [];
@@ -70,7 +70,7 @@ app.get("/teams", async function (req, res, next) {
   res.json(info);
 });
 
-app.get("/teams/:id/roster", async function (req, res, next) {
+app.get("/teams/:id/roster", async (req, res, next) => {
   // console.log(Object.keys(req.query).length === 0);
   const order =
     Object.keys(req.query).length === 0
