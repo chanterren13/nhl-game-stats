@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.pin-section {
+    width: 30%;
+    position: fixed;
+    top: 10px;
+    left: 35%;
+    z-index: 101;
+}
+
+@media (max-width: 576px) {
+    .pin-section {
+        width: 90%;
+        top: 50px;
+        left: 5%;
+    }
+}
