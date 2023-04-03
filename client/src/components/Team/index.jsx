@@ -51,12 +51,10 @@ const Team = ({ record, teamInfo }) => {
               <img src={process.env.PUBLIC_URL + `/media/${id}.png`} alt="" />
             </div>
             <div className="team-name">
-                <div className="fs-4 fw-semibold">
-                {teamInfo.name}
-                </div>
-                <div className="fs-5">
+              <div className="fs-4 fw-semibold">{teamInfo.name}</div>
+              <div className="fs-5">
                 {record.wins}-{record.losses}-{record.ot}
-                </div>
+              </div>
             </div>
           </div>
         </Col>
@@ -89,6 +87,6 @@ const Team = ({ record, teamInfo }) => {
       </Collapse>
     </div>
   );
-}
+};
 
 export default Team;

@@ -30,18 +30,18 @@ const Game = ({ homeTeam, awayTeam, date }) => {
     <div>
       @ {gameTime}
       <Row className="g-0">
-        <Col >
-            <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team>
+        <Col>
+          <Team teamInfo={homeTeam.team} record={homeTeam.leagueRecord}></Team>
         </Col>
         <Col lg={1} xs={12} className="d-flex flex-wrap justify-content-center">
-            <span className="vs">VS</span>
+          <span className="vs">VS</span>
         </Col>
-        <Col >
-            <Team teamInfo={awayTeam.team} record={awayTeam.leagueRecord}></Team>
+        <Col>
+          <Team teamInfo={awayTeam.team} record={awayTeam.leagueRecord}></Team>
         </Col>
       </Row>
     </div>
   );
-}
+};
 
 export default Game;

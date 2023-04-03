@@ -17,16 +17,16 @@ const App = () => {
 
   useLayoutEffect(() => {
     const handleScroll = () => {
-        const scrollPos = window.scrollY;
-        if (scrollPos > 60) {
-            setShowButton(true);
-        } else {
-            setShowButton(false);
-        }
+      const scrollPos = window.scrollY;
+      if (scrollPos > 60) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
       }
-    window.addEventListener('scroll', handleScroll);
+    };
+    window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const fetchSchedule = () => {
@@ -66,6 +66,6 @@ const App = () => {
       {showButton && <ScrollButton></ScrollButton>}
     </div>
   );
-}
+};
 
 export default App;

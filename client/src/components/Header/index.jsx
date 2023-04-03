@@ -25,8 +25,8 @@ const Header = () => {
       order: "ASC",
     },
     {
-        method: "gStrk",
-        order: "DESC"
+      method: "gStrk",
+      order: "DESC",
     },
   ];
 
@@ -52,9 +52,7 @@ const Header = () => {
               <NavDropdown.Item eventKey="2">
                 Name <TriangleUpIcon size={24}></TriangleUpIcon>
               </NavDropdown.Item>
-              <NavDropdown.Item eventKey="3">
-                Hottest
-              </NavDropdown.Item>
+              <NavDropdown.Item eventKey="3">Hottest</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Container>

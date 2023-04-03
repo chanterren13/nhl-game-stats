@@ -12,7 +12,7 @@ const Player = ({ info }) => {
       </Col>
       <Col xs={11} lg={4}>
         <div className="text-middle text-md-start name">
-        {info.name} - {info.position}
+          {info.name} - {info.position}
         </div>
       </Col>
       <Col className="text-middle text-md-end stats">
@@ -28,6 +28,6 @@ const Player = ({ info }) => {
       </Col>
     </Row>
   );
-}
+};
 
 export default Player;

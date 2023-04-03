@@ -27,16 +27,19 @@ try {
 }
 
 // Update DB at 5AM
-cron.schedule('0 5 * * *', async () => {
-    console.log("Updating DB...");
-    // Get yesterdays schedule then update the players from yesterday's game
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const dateStr = [yesterday.getFullYear(), yesterday.getMonth() + 1, yesterday.getDate()].join('-');
-    console.log(`Getting schedule for ${dateStr}...`);
-    const schedule = await getSchedule(dateStr);
-    updateDB(schedule).then(() => console.log("Updated!"));
-    
+cron.schedule("0 5 * * *", async () => {
+  console.log("Updating DB...");
+  // Get yesterdays schedule then update the players from yesterday's game
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const dateStr = [
+    yesterday.getFullYear(),
+    yesterday.getMonth() + 1,
+    yesterday.getDate(),
+  ].join("-");
+  console.log(`Getting schedule for ${dateStr}...`);
+  const schedule = await getSchedule(dateStr);
+  updateDB(schedule).then(() => console.log("Updated!"));
 });
 
 const dbService = new DBService();
