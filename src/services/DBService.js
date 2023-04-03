@@ -1,6 +1,6 @@
-import { sequelize } from "../../datasource.js";
-import { Team } from "../../models/team.js";
-import { Player } from "../../models/player.js";
+import { sequelize } from "../datasource.js";
+import { Team } from "../models/team.js";
+import { Player } from "../models/player.js";
 
 export class DBService {
   constructor() {}

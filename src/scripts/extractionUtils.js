@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DBService } from "../services/DBService.js";
+import { DBService } from "../src/services/DBService.js";
 
 export const updateTeams = async (ids) => {
   const dbService = new DBService();
