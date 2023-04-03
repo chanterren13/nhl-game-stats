@@ -1,0 +1,22 @@
+.team-box {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.vs {
+  font-weight: bold;
+  margin: 50px 0px;
+}
+
+@media (max-width: 576px) {
+  .team-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vs {
+    margin: 5px 0px;
+  }
+}
