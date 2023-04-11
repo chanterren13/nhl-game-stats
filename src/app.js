@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { sequelize } from "./datasource.js";
+import { sequelize } from "./db/datasource.js";
 import { getSchedule, updateDB } from "./scripts/extractionUtils.js";
 import { DBService } from "./services/DBService.js";
 import cors from "cors";
