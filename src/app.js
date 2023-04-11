@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { sequelize } from "./db/datasource.js";
 import { getSchedule, updateDB } from "./scripts/extractionUtils.js";
 import { DBService } from "./services/DBService.js";
+import constants from "./constants.js";
 import cors from "cors";
 import cron from "node-cron";
 
@@ -10,6 +11,7 @@ export const app = express();
 
 const corsOptions = {
   origin: true,
+  // origin: constants.DOMAIN
   optionssuccessStatus: 200,
   credentials: true,
 };
@@ -39,7 +41,9 @@ cron.schedule("0 5 * * *", async () => {
   ].join("-");
   console.log(`Getting schedule for ${dateStr}...`);
   const schedule = await getSchedule(dateStr);
-  updateDB(schedule).then(() => console.log("Updated!"));
+  updateDB(schedule).then(() =>{
+    setTimeout(() => console.log("Updated!"), 1000);
+  });
 });
 
 const dbService = new DBService();
@@ -91,7 +95,7 @@ app.get("/teams/:id/roster", async (req, res, next) => {
   res.json(roster);
 });
 
-const PORT = 5000;
+const PORT = constants.PORT;
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);
