@@ -1,0 +1,64 @@
+version: '3.7'
+
+services:
+  nginx-proxy:
+    restart: always
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+      - ./vhost:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
+    depends_on:
+      - frontend
+      - backend
+    network_mode: bridge
+
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion
+    volumes_from:
+      - nginx-proxy
+    container_name: nginx-proxy-acme
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+      - ./vhost:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
+      - ./acme:/etc/acme.sh
+    environment:
+      - DEFAULT_EMAIL=email@email.com
+    depends_on:
+      - nginx-proxy
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 80
+    network_mode: bridge
+    environment:
+      - VIRTUAL_HOST=domain_name
+      - LETSENCRYPT_HOST=domain_name
+      - LETSENCRYPT_EMAIL=email@email.com
+  backend:
+    container_name: backend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - /db:/usr/src/app/db
+    expose:
+      - 3000
+    network_mode: bridge
+    environment:
+      - VIRTUAL_HOST=api.domain_name
+      - LETSENCRYPT_HOST=api.domain_name
+      - LETSENCRYPT_EMAIL=email@email.com
