@@ -12,7 +12,7 @@ document.title = "NHL Game Stats";
 root.render(
   <SortMethodProvider>
     <PinPlayerProvider>
-        <App />
+      <App />
     </PinPlayerProvider>
   </SortMethodProvider>
 );

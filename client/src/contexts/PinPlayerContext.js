@@ -9,9 +9,7 @@ export const PinPlayerProvider = (props) => {
   const [player, setPlayer] = useState(null);
 
   return (
-    <PinPlayerContext.Provider
-      value={{ player: player, setPlayer: setPlayer }}
-    >
+    <PinPlayerContext.Provider value={{ player: player, setPlayer: setPlayer }}>
       {props.children}
     </PinPlayerContext.Provider>
   );

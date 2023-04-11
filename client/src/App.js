@@ -55,12 +55,10 @@ const App = () => {
     <div className="text-light">
       <Header></Header>
       <Container className="mt-3">
-        {pinnedPlayer.player ? (
+        {pinnedPlayer.player && (
           <div className="pin-section">
             <Player info={pinnedPlayer.player} pinned={true}></Player>
           </div>
-        ) : (
-          ""
         )}
         {schedule &&
           schedule.map((game) => (

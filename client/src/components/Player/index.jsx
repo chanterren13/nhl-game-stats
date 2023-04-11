@@ -1,11 +1,7 @@
 import React, { useContext } from "react";
 import { PinPlayerContext } from "../../contexts/PinPlayerContext";
 import "./Player.css";
-import {
-  FlameIcon,
-  PinIcon,
-  XIcon,
-} from "@primer/octicons-react";
+import { FlameIcon, PinIcon, XIcon } from "@primer/octicons-react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/esm/Col";
 
@@ -13,21 +9,14 @@ const Player = ({ info, pinned = false }) => {
   const pinPlayer = useContext(PinPlayerContext);
 
   const handlePin = () => {
-    pinPlayer.setPlayer({
-        name: info.name,
-        position: info.position,
-      gamesPlayed: info.gamesPlayed,
-      goals: info.goals,
-      assists: info.assists,
-      points: info.points,
-      shotPct: info.shotPct,
-      gStrk: info.gStrk,
-      ptStrk: info.ptStrk,
-    });
+    pinPlayer.setPlayer(info);
   };
 
   const handleClose = () => {
-    pinPlayer.setPlayer(null);
+    document.querySelector(".pin-section").classList.add("close-pin");
+    setTimeout(() => {
+      pinPlayer.setPlayer(null);
+    }, 495);
   };
 
   return (
