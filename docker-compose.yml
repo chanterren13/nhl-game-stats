@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   nginx-proxy:
@@ -42,6 +42,8 @@ services:
     restart: always
     expose:
       - 80
+    # ports:
+    #   - 3000:80
     network_mode: bridge
     environment:
       - VIRTUAL_HOST=domain_name
@@ -49,14 +51,16 @@ services:
       - LETSENCRYPT_EMAIL=email@email.com
   backend:
     container_name: backend
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - /db:/usr/src/app/db
+      - ./db:/usr/src/app/db
     expose:
-      - 3000
+      - 5000
+    # ports:
+    #   - 5000:5000
     network_mode: bridge
     environment:
       - VIRTUAL_HOST=api.domain_name

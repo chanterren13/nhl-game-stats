@@ -12,8 +12,7 @@ COPY package*.json ./
 
 RUN npm install
 
-# Bundle app source
 COPY . .
-
+ENV TZ="America/New_York"
 EXPOSE 3000
 CMD [ "npm", "start" ]
