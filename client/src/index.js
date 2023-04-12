@@ -8,7 +8,7 @@ import { PinPlayerProvider } from "./contexts/PinPlayerContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-document.title = "NHL Game Stats";
+document.title = "NHL Nightly";
 root.render(
   <SortMethodProvider>
     <PinPlayerProvider>

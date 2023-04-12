@@ -10,8 +10,8 @@ import cron from "node-cron";
 export const app = express();
 
 const corsOptions = {
-  origin: true,
-  // origin: constants.DOMAIN
+//   origin: true,
+  origin: constants.DOMAIN,
   optionssuccessStatus: 200,
   credentials: true,
 };
@@ -22,7 +22,7 @@ try {
   await sequelize.authenticate();
   // Automatically detect all of your defined models and create (or modify) the tables for you.
   // This is not recommended for production-use, but that is a topic for a later time!
-  await sequelize.sync({ alter: { drop: false } });
+//   await sequelize.sync({ alter: { drop: false } });
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
