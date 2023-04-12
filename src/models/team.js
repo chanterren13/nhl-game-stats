@@ -1,4 +1,4 @@
-import { sequelize } from "../db/datasource.js";
+import { sequelize } from "../../db/datasource.js";
 import { DataTypes } from "sequelize";
 import { Player } from "./player.js";
 

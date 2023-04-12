@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import constants from "../constants.js";
+import constants from "../src/constants.js";
 
 export const sequelize = new Sequelize({
   dialect: "sqlite",
