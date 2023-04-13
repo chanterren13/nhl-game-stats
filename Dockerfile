@@ -14,5 +14,5 @@ RUN npm install
 
 COPY . .
 ENV TZ="America/New_York"
-EXPOSE 3000
+EXPOSE 5000
 CMD [ "npm", "start" ]
