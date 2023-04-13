@@ -11,11 +11,15 @@
 }
 
 .stats {
-  font-size: 1vw;
+  font-size: 0.9em;
 }
 
 .name {
-  font-size: 1.5vw;
+  font-size: 1em;
+}
+
+.close-pin {
+  animation: 0.5s ease-out slideout;
 }
 
 @media (max-width: 576px) {
@@ -39,5 +43,17 @@
 
   .name {
     font-size: 4vw;
+  }
+}
+
+@keyframes slideout {
+  from {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-20px);
+    opacity: 0;
   }
 }

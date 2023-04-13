@@ -3,13 +3,16 @@ import Game from "./components/Game";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import axios from "axios";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState, useLayoutEffect, useContext } from "react";
 import Container from "react-bootstrap/esm/Container";
 import ScrollButton from "./components/ScrollButton";
+import { PinPlayerContext } from "./contexts/PinPlayerContext";
+import Player from "./components/Player";
 
 const App = () => {
   const [schedule, setSchedule] = useState();
   const [showButton, setShowButton] = useState(false);
+  const pinnedPlayer = useContext(PinPlayerContext);
 
   useEffect(() => {
     fetchSchedule();
@@ -49,9 +52,14 @@ const App = () => {
   };
 
   return (
-    <div className="bg-dark text-light">
+    <div className="text-light">
       <Header></Header>
       <Container className="mt-3">
+        {pinnedPlayer.player && (
+          <div className="pin-section">
+            <Player info={pinnedPlayer.player} pinned={true}></Player>
+          </div>
+        )}
         {schedule &&
           schedule.map((game) => (
             <Game

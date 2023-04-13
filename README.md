@@ -1,4 +1,4 @@
-# NHL Game Stats
+# [NHL Game Stats](https://nhlnightly.me)
 
 See every game being played in the NHL tonight with the stats of all the players on the roster!
 

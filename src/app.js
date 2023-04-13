@@ -1,15 +1,17 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { sequelize } from "./datasource.js";
-import { getSchedule, updateDB } from "./scripts/extractionUtils.js";
+import { sequelize } from "../db/datasource.js";
+import { getSchedule, updateDB } from "./utils/extractionUtils.js";
 import { DBService } from "./services/DBService.js";
+import constants from "./constants.js";
 import cors from "cors";
 import cron from "node-cron";
 
 export const app = express();
 
 const corsOptions = {
-  origin: true,
+  //   origin: true,
+  origin: constants.DOMAIN,
   optionssuccessStatus: 200,
   credentials: true,
 };
@@ -20,7 +22,7 @@ try {
   await sequelize.authenticate();
   // Automatically detect all of your defined models and create (or modify) the tables for you.
   // This is not recommended for production-use, but that is a topic for a later time!
-  await sequelize.sync({ alter: { drop: false } });
+    // await sequelize.sync({ alter: { drop: false } });
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
@@ -39,7 +41,9 @@ cron.schedule("0 5 * * *", async () => {
   ].join("-");
   console.log(`Getting schedule for ${dateStr}...`);
   const schedule = await getSchedule(dateStr);
-  updateDB(schedule).then(() => console.log("Updated!"));
+  updateDB(schedule).then(() => {
+    setTimeout(() => console.log("Updated!"), 1000);
+  });
 });
 
 const dbService = new DBService();
@@ -91,7 +95,7 @@ app.get("/teams/:id/roster", async (req, res, next) => {
   res.json(roster);
 });
 
-const PORT = 5000;
+const PORT = constants.PORT;
 
 app.listen(PORT, (err) => {
   if (err) console.log(err);

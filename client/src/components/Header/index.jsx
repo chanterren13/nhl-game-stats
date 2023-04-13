@@ -40,7 +40,7 @@ const Header = () => {
     <>
       <Navbar bg="black" variant="dark">
         <Container fluid className="px-sm-5">
-          <Navbar.Brand className="fs-1">NHL Game Stats</Navbar.Brand>
+          <Navbar.Brand className="fs-1">NHL NIGHTLY</Navbar.Brand>
           <Nav onSelect={selectSort} activeKey={key}>
             <NavDropdown title="Sort By" align="end">
               <NavDropdown.Item eventKey="0">
