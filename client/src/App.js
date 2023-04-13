@@ -10,7 +10,7 @@ import { PinPlayerContext } from "./contexts/PinPlayerContext";
 import Player from "./components/Player";
 
 const App = () => {
-  const [schedule, setSchedule] = useState();
+  const [schedule, setSchedule] = useState([]);
   const [showButton, setShowButton] = useState(false);
   const pinnedPlayer = useContext(PinPlayerContext);
 
@@ -48,6 +48,7 @@ const App = () => {
       })
       .catch((err) => {
         console.log(err);
+        setSchedule([]);
       });
   };
 
@@ -60,15 +61,19 @@ const App = () => {
             <Player info={pinnedPlayer.player} pinned={true}></Player>
           </div>
         )}
-        {schedule &&
-          schedule.map((game) => (
+        {schedule.length > 0 ? (schedule.map((game) => (
             <Game
               key={game.id}
               homeTeam={game.home}
               awayTeam={game.away}
               date={game.date}
             ></Game>
-          ))}
+          ))) : (
+            <div style={{textAlign: "center"}}>
+                <h1>No Games Today :(</h1>
+            </div>
+          )
+          }
         <Footer></Footer>
       </Container>
       {showButton && <ScrollButton></ScrollButton>}
