@@ -33,7 +33,7 @@ const App = () => {
   }, []);
 
   const fetchSchedule = () => {
-    console.log(`${process.env.REACT_APP_SERVER_DOMAIN}/schedules`);
+    // console.log(`${process.env.REACT_APP_SERVER_DOMAIN}/schedules`);
     let config = {
       method: "get",
       url: `${process.env.REACT_APP_SERVER_DOMAIN}/schedules`,

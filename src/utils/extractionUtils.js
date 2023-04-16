@@ -92,6 +92,9 @@ export const parseSchedule = (schedule) => {
 };
 
 export const updateDB = async (schedule) => {
+  if (schedule.length === 0) {
+    return;
+  }
   const ids = parseSchedule(schedule);
   await updateTeams(ids);
   for (const id of ids) {
@@ -203,16 +206,21 @@ export const getSchedule = async (date = null) => {
 
   const res = await axios(scheduleConfig);
   // console.log(res.data.dates[0].games);
-  const schedule = [];
-  res.data.dates[0].games.forEach((game) => {
-    const gameData = {
-      id: game.gamePk,
-      home: game.teams.home,
-      away: game.teams.away,
-      date: game.gameDate,
-    };
-    // console.log(gameData);
-    schedule.push(gameData);
-  });
-  return schedule;
+  try {
+    const schedule = [];
+    res.data.dates[0].games.forEach((game) => {
+      const gameData = {
+        id: game.gamePk,
+        home: game.teams.home,
+        away: game.teams.away,
+        date: game.gameDate,
+      };
+      // console.log(gameData);
+      schedule.push(gameData);
+    });
+    return schedule;
+  } catch (error) {
+    console.log("No schedule for today");
+    return [];
+  }
 };

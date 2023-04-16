@@ -22,14 +22,14 @@ try {
   await sequelize.authenticate();
   // Automatically detect all of your defined models and create (or modify) the tables for you.
   // This is not recommended for production-use, but that is a topic for a later time!
-    // await sequelize.sync({ alter: { drop: false } });
+  // await sequelize.sync({ alter: { drop: false } });
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
 }
 
 // Update DB at 5AM
-cron.schedule("0 5 * * *", async () => {
+cron.schedule("0 7 * * *", async () => {
   console.log("Updating DB...");
   // Get yesterdays schedule then update the players from yesterday's game
   const yesterday = new Date();

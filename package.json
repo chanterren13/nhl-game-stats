@@ -8,7 +8,8 @@
     "start:dev": "nodemon ./src/app.js",
     "format": "npx prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/app.js"
+    "start": "node ./src/app.js",
+    "push-image": "docker build -t ghcr.io/chanterren13/nhlnightly-backend .; docker push ghcr.io/chanterren13/nhlnightly-backend"
   },
   "keywords": [],
   "author": "",

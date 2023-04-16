@@ -54,8 +54,14 @@ export const Player = sequelize.define(
         if (player.changed("goals")) {
           console.log(`${player.name} scored`);
         }
-        player.gStrk = player.changed("goals") && player.changed("gamesPlayed") ? player.gStrk + 1 : 0;
-        player.ptStrk = player.changed("points") && player.changed("gamesPlayed") ? player.ptStrk + 1 : 0;
+        player.gStrk =
+          player.changed("goals") && player.changed("gamesPlayed")
+            ? player.gStrk + 1
+            : 0;
+        player.ptStrk =
+          player.changed("points") && player.changed("gamesPlayed")
+            ? player.ptStrk + 1
+            : 0;
       },
     },
   }
